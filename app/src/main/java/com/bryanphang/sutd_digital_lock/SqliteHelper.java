@@ -6,10 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * Created by amardeep on 10/26/2017.
- */
-
 public class SqliteHelper extends SQLiteOpenHelper {
 
     //DATABASE NAME
@@ -20,21 +16,27 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
     //TABLE NAME
     public static final String TABLE_USERS = "users";
+    public static final String TABLE_ACCESS = "access";
 
-    //TABLE USERS COLUMNS
-    //ID COLUMN @primaryKey
+
+    //TABLE COLUMNS
+
+    //User table
     public static final String KEY_ID = "id";
-
-    //COLUMN user name
     public static final String KEY_USER_NAME = "username";
-
-    //COLUMN email
     public static final String KEY_EMAIL = "email";
-
-    //COLUMN password
     public static final String KEY_PASSWORD = "password";
 
-    //SQL for creating users table
+    //Access table
+    public static final String KEY_FINDBY_NAME = "findname";
+    public static final String KEY_LOCK_NUM = "locknum";
+    public static final String KEY_DATETIME_FROM = "datetimefrom";
+    public static final String KEY_DATETIME_TO = "datetimeto";
+
+
+
+
+    //SQL for creating table
     public static final String SQL_TABLE_USERS = " CREATE TABLE " + TABLE_USERS
             + " ( "
             + KEY_ID + " INTEGER PRIMARY KEY, "
@@ -43,6 +45,14 @@ public class SqliteHelper extends SQLiteOpenHelper {
             + KEY_PASSWORD + " TEXT"
             + " ) ";
 
+    public static final String SQL_TABLE_ACCESS = " CREATE TABLE " + TABLE_ACCESS
+            + " ( "
+            + KEY_ID + " INTEGER PRIMARY KEY, "
+            + KEY_FINDBY_NAME + " TEXT, "
+            + KEY_LOCK_NUM + " TEXT, "
+            + KEY_DATETIME_FROM + " TEXT, "
+            + KEY_DATETIME_TO + " TEXT"
+            + " ) ";
 
     public SqliteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -52,6 +62,8 @@ public class SqliteHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         //Create Table when oncreate gets called
         sqLiteDatabase.execSQL(SQL_TABLE_USERS);
+        sqLiteDatabase.execSQL(SQL_TABLE_ACCESS);
+
 
     }
 
@@ -59,7 +71,12 @@ public class SqliteHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         //drop table to create new one if database version updated
         sqLiteDatabase.execSQL(" DROP TABLE IF EXISTS " + TABLE_USERS);
+        sqLiteDatabase.execSQL(" DROP TABLE IF EXISTS " + TABLE_ACCESS);
+
     }
+
+
+    //USER TABLE CALLS
 
     //using this method we can add users to user table
     public void addUser(User user) {
@@ -120,5 +137,25 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
         //if email does not exist return false
         return false;
+    }
+
+
+    //ACCESS TABLE CALLS
+
+    public void addAccess(Access access) {
+
+        //get writable database
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //create content values to insert
+        ContentValues values = new ContentValues();
+
+        values.put(KEY_FINDBY_NAME, access.findname);
+        values.put(KEY_LOCK_NUM, access.locknum);
+        values.put(KEY_DATETIME_FROM, access.datetimefrom);
+        values.put(KEY_DATETIME_TO, access.datetimeto);
+
+        // insert row
+        db.insert(TABLE_ACCESS, null, values);
     }
 }
