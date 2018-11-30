@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.bryanphang.sutd_digital_lock.HomeActivity">
+    <item
+        android:id="@+id/keys"
+        android:paddingBottom="16dp"
+        android:title="Key List"
+        android:icon="@drawable/ic_vpn_key_black_24dp"/>
+    <item
+        android:id="@+id/access"
+        android:paddingBottom="16dp"
+        android:title="My Access"
+        android:icon="@drawable/ic_lock_open_black_24dp"/>
+</menu>
