@@ -3,6 +3,7 @@ package com.bryanphang.sutd_digital_lock;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -86,6 +87,9 @@ public class LockAccessActivity extends AppCompatActivity implements DatePickerD
                 String Datetimeto = datetimeTo.getText().toString();
                 sqliteHelper.addAccess(new Access(null, Name, Locknum, Datetimefrom, Datetimeto));
 
+                Intent intent = new Intent(LockAccessActivity.this, HomeActivity.class);
+                startActivity(intent);
+
             }
         });
     }
@@ -109,7 +113,7 @@ public class LockAccessActivity extends AppCompatActivity implements DatePickerD
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        showTime(hourOfDay, minute, year, month, dayOfMonth);
+        showTime(hourOfDay, minute, year, month+1, dayOfMonth);
 
     }
 

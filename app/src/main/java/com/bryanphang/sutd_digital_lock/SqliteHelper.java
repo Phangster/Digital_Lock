@@ -158,4 +158,11 @@ public class SqliteHelper extends SQLiteOpenHelper {
         // insert row
         db.insert(TABLE_ACCESS, null, values);
     }
+
+
+    public Cursor getAllData(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor result = db.rawQuery("SELECT * FROM " + TABLE_ACCESS, null);
+        return result;
+    }
 }

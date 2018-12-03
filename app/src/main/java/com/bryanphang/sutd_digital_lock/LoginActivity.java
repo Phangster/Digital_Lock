@@ -54,11 +54,9 @@ public class LoginActivity extends AppCompatActivity {
                     //Check Authentication is successful or not
                     if (currentUser != null) {
                         Snackbar.make(buttonLogin, "Successfully Logged in!", Snackbar.LENGTH_LONG).show();
-
-                        //User Logged in Successfully Launch You home screen activity
-                       /* Intent intent=new Intent(LoginActivity.this,HomeScreenActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         startActivity(intent);
-                        finish();*/
+
                     } else {
 
                         //User Logged in Failed
