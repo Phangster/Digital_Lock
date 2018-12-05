@@ -7,4 +7,16 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/go_add_access"
+        android:orderInCategory="110"
+        android:title="Add Access"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/view_all"
+        android:orderInCategory="120"
+        android:title="View All"
+        app:showAsAction="never" />
 </menu>

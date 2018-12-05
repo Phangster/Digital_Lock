@@ -41,23 +41,17 @@
         android:text="KEY LIST"
         android:textSize="100px" />
 
-    <Button
-        android:id="@+id/addAccess"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/charaRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="218dp"
-        android:text="Add Access" />
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="50dp">
 
-    <Button
-        android:id="@+id/btn_viewall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="221dp"
-        android:text="View All" />
+    </android.support.v7.widget.RecyclerView>
 
 
 </RelativeLayout>

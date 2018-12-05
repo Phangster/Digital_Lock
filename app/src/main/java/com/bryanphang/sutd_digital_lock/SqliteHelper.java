@@ -3,10 +3,17 @@ package com.bryanphang.sutd_digital_lock;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 public class SqliteHelper extends SQLiteOpenHelper {
+
+    private SQLiteDatabase readableDb;
+    private static SqliteHelper sqliteHelper;
+    private SQLiteDatabase writeableDb;
 
     //DATABASE NAME
     public static final String DATABASE_NAME = "loopwiki.com";
@@ -159,10 +166,103 @@ public class SqliteHelper extends SQLiteOpenHelper {
         db.insert(TABLE_ACCESS, null, values);
     }
 
-
     public Cursor getAllData(){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor result = db.rawQuery("SELECT * FROM " + TABLE_ACCESS, null);
         return result;
+    }
+
+    /*ADDED BY JIREH */
+
+    static SqliteHelper createSqliteHelper(Context context) {
+        if (sqliteHelper == null) {
+            sqliteHelper = new SqliteHelper(context);
+        }
+        return sqliteHelper;
+    }
+
+    public CharaData queryOneRow(int position){
+        if (readableDb == null) {
+            readableDb = getReadableDatabase();
+        }
+        Cursor cursor = getAllData();
+        return getDataFromCursor(position, cursor);
+    }
+
+    public long queryNumRows(){
+        if (readableDb == null) {
+            readableDb = getReadableDatabase();
+        }
+        return DatabaseUtils.queryNumEntries(readableDb, TABLE_ACCESS);
+    }
+
+    private CharaData getDataFromCursor(int position, Cursor cursor){
+
+        String name = null;
+        String lockid = null;
+        String fromDate = null;
+        String toDate = null;
+
+        //move to given row
+        cursor.moveToPosition(position);
+
+        //name
+        int nameIndex = cursor.getColumnIndex(KEY_FINDBY_NAME);
+        //for text data type: cursor.getString
+        name = cursor.getString(nameIndex);
+
+        //lock ID
+        int lockidIndex = cursor.getColumnIndex(KEY_LOCK_NUM);
+        lockid = cursor.getString(lockidIndex);
+
+        //fromDate
+        int fromDateIndex = cursor.getColumnIndex(KEY_DATETIME_FROM);
+        fromDate = cursor.getString(fromDateIndex);
+
+        //toDate
+        int toDateIndex = cursor.getColumnIndex(KEY_DATETIME_TO);
+        toDate = cursor.getString(toDateIndex);
+
+        return new CharaData(name, lockid, fromDate, toDate);
+    }
+    
+    public int deleteOneRow(String name) {
+        if (writeableDb == null) {
+            writeableDb = getWritableDatabase();
+        }
+        String WHERE_CLAUSE = KEY_ID + " = ?";
+        String[] WHERE_ARGS = {name};
+        int rowsDeleted = writeableDb.delete(TABLE_ACCESS, WHERE_CLAUSE, WHERE_ARGS);
+        return rowsDeleted;
+    }
+
+    static class CharaData {
+        private String name;
+        private String lockid;
+        private String fromDate;
+        private String toDate;
+
+        public CharaData(String name, String lockid, String fromDate, String toDate) {
+            this.name = name;
+            this.lockid = lockid;
+            this.fromDate = fromDate;
+            this.toDate = toDate;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getLockid() {
+            return lockid;
+        }
+
+        public String getFromDate() {
+            return fromDate;
+        }
+
+        public String getToDate() {
+            return toDate;
+        }
     }
 }
