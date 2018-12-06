@@ -12,13 +12,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.FilterQueryProvider;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class RecyclerViewActivity extends AppCompatActivity {
+
     RecyclerView recyclerView;
     SQLiteListAdapter sqLiteListAdapter;
     SqliteHelper sqliteHelper;
@@ -39,6 +43,9 @@ public class RecyclerViewActivity extends AppCompatActivity {
         recyclerView.setAdapter(sqLiteListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //TODO 9.8 Put in code to allow each recyclerview item to be deleted when swiped
+
+
+
 
         //TODO 9.9 attach the recyclerView to helper
 

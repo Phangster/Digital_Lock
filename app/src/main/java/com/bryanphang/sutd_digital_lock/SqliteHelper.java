@@ -236,6 +236,11 @@ public class SqliteHelper extends SQLiteOpenHelper {
         return rowsDeleted;
     }
 
+    public Integer deleteData(String id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_ACCESS, "ID = ?", new String[] {id});
+    }
+
     static class CharaData {
         private String name;
         private String lockid;
