@@ -225,12 +225,12 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
         return new CharaData(name, lockid, fromDate, toDate);
     }
-    
+
     public int deleteOneRow(String name) {
         if (writeableDb == null) {
             writeableDb = getWritableDatabase();
         }
-        String WHERE_CLAUSE = KEY_ID + " = ?";
+        String WHERE_CLAUSE = KEY_FINDBY_NAME + " = ?";
         String[] WHERE_ARGS = {name};
         int rowsDeleted = writeableDb.delete(TABLE_ACCESS, WHERE_CLAUSE, WHERE_ARGS);
         return rowsDeleted;

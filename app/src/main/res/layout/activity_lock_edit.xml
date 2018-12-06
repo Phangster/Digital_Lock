@@ -12,64 +12,82 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="42dp"
         android:gravity="center"
-        android:hint="@string/lockcode"
+        android:hint=""
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="43dp">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/textInputEditTextlocknum"
+            android:id="@+id/textInputEditTextOriginallocknum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/textInputLayoutfindname"
+        android:id="@+id/textInputLayoutOriginalfindname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="130dp"
+        android:layout_below="@+id/textInputLayoutlocknum"
+        android:gravity="center"
+        android:hint=""
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="90dp">
+        tools:layout_editor_absoluteY="43dp">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/textInputEditTextfindname"
+            android:id="@+id/textInputEditTextOriginalfindname"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Name" />
-
+            android:layout_height="wrap_content" />
     </android.support.design.widget.TextInputLayout>
 
+    <!--<android.support.design.widget.TextInputLayout-->
+        <!--android:id="@+id/textInputLayoutOriginalfindname"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_marginTop="130dp"-->
+        <!--tools:layout_editor_absoluteX="0dp"-->
+        <!--tools:layout_editor_absoluteY="90dp"-->
+        <!--android:hint="@string/lockcode">-->
+
+        <!--<android.support.design.widget.TextInputEditText-->
+            <!--android:id="@+id/textInputEditTextorifindname"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--/>-->
+
+    <!--</android.support.design.widget.TextInputLayout>-->
+
     <Button
-        android:id="@+id/btn_datetimePickerFrom"
+        android:id="@+id/btn_editdatetimePickerFrom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="33dp"
         android:layout_marginTop="203dp"
-        android:text="Set"
+        android:text="Edit"
         tools:layout_editor_absoluteX="84dp"
         tools:layout_editor_absoluteY="338dp" />
 
     <Button
-        android:id="@+id/btn_datetimePickerTo"
+        android:id="@+id/btn_editdatetimePickerTo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/btn_datetimePickerFrom"
-        android:layout_marginBottom="193dp"
-        android:text="Set"
+        android:layout_alignStart="@+id/btn_editdatetimePickerFrom"
+        android:layout_marginBottom="191dp"
+        android:text="Edit"
         tools:layout_editor_absoluteX="245dp"
         tools:layout_editor_absoluteY="175dp" />
 
     <TextView
-        android:id="@+id/datetimeFrom"
+        android:id="@+id/originaldatetimeFrom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btn_datetimePickerFrom"
+        android:layout_alignBaseline="@+id/btn_editdatetimePickerFrom"
         android:layout_alignParentStart="true"
         android:layout_marginStart="28dp"
         android:text="From:"
@@ -77,24 +95,25 @@
         tools:layout_editor_absoluteY="223dp" />
 
     <TextView
-        android:id="@+id/datetimeTo"
+        android:id="@+id/originaldatetimeTo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btn_datetimePickerTo"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
+        android:layout_marginBottom="199dp"
         android:layout_marginStart="35dp"
         android:text="To:"
         tools:layout_editor_absoluteX="26dp"
         tools:layout_editor_absoluteY="195dp" />
 
     <Button
-        android:id="@+id/btn_submitAccess"
+        android:id="@+id/btn_editAccess"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="79dp"
-        android:text="Grant Access" />
+        android:text="Edit Access" />
 
 
 </RelativeLayout>
