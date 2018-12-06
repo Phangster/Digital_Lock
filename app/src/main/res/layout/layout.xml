@@ -109,20 +109,12 @@
                 android:layout_marginTop="20px"/>
 
             <Button
-                android:id="@+id/buttondelete"
-                android:layout_centerInParent="true"
-                android:text="DELETE"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/buttonedit" />
-
-            <Button
                 android:id="@+id/buttonunlock"
                 android:layout_centerInParent="true"
                 android:text="UNLOCK"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/buttondelete"
+                android:layout_below="@id/buttonedit"
                 android:layout_marginBottom="20px" />
 
         </RelativeLayout>

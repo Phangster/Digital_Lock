@@ -110,10 +110,10 @@ public class HomeActivity extends AppCompatActivity{
                 StringBuffer buffer = new StringBuffer();
                 while (result.moveToNext()){
                     buffer.append("Id: "+result.getString(0) + "\n");
-                    buffer.append("Locknumber: "+result.getString(1) + "\n");
-                    buffer.append("Name: "+result.getString(2) + "\n");
-                    buffer.append("Timefrom: "+result.getString(3) + "\n");
-                    buffer.append("Timeto: "+result.getString(4) + "\n");
+                    buffer.append("Lock Code: "+result.getString(2) + "\n");
+                    buffer.append("Name: "+result.getString(1) + "\n");
+                    buffer.append("Time from: "+result.getString(3) + "\n");
+                    buffer.append("Time to: "+result.getString(4) + "\n");
                 }
                 System.out.println(buffer.toString());
 

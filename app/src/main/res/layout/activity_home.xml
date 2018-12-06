@@ -38,7 +38,9 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="65dp"
+        android:fontFamily="@font/roboto_black"
         android:text="KEY LIST"
+        android:textColor="#0C0C0C"
         android:textSize="100px" />
 
     <android.support.v7.widget.RecyclerView
