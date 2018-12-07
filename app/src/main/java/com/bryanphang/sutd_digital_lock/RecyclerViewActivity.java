@@ -55,7 +55,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
                 return false;
             }
-            
+
         //TODO 9.9 attach the recyclerView to helper
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {

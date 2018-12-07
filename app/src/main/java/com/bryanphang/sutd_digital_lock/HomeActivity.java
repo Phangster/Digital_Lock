@@ -122,7 +122,8 @@ public class HomeActivity extends AppCompatActivity{
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            return true;
+            Intent intent = new Intent(this, BluetoothActivity.class);
+            startActivity(intent);
         }
 
         if (id == R.id.go_add_access) {
