@@ -31,8 +31,6 @@ public class RecyclerViewActivity extends AppCompatActivity {
     SQLiteListAdapter sqLiteListAdapter;
     SqliteHelper sqliteHelper;
 
-    Button editButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

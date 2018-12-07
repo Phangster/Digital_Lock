@@ -6,8 +6,6 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
 public class SqliteHelper extends SQLiteOpenHelper {
 
@@ -16,7 +14,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
     private SQLiteDatabase writeableDb;
 
     //DATABASE NAME
-    public static final String DATABASE_NAME = "loopwiki.com";
+    public static final String DATABASE_NAME = "locklock.com";
 
     //DATABASE VERSION
     public static final int DATABASE_VERSION = 1;
@@ -24,6 +22,8 @@ public class SqliteHelper extends SQLiteOpenHelper {
     //TABLE NAME
     public static final String TABLE_USERS = "users";
     public static final String TABLE_ACCESS = "access";
+    public static final String TABLE_LOCK = "lock";
+
 
 
     //TABLE COLUMNS
@@ -40,6 +40,9 @@ public class SqliteHelper extends SQLiteOpenHelper {
     public static final String KEY_DATETIME_FROM = "datetimefrom";
     public static final String KEY_DATETIME_TO = "datetimeto";
 
+    //Lock table
+    public static final String KEY_LOCK = "locknum";
+    public static final String KEY_LOCK_PASSWORD = "lockpassword";
 
 
 
@@ -52,6 +55,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
             + KEY_PASSWORD + " TEXT"
             + " ) ";
 
+
     public static final String SQL_TABLE_ACCESS = " CREATE TABLE " + TABLE_ACCESS
             + " ( "
             + KEY_ID + " INTEGER PRIMARY KEY, "
@@ -59,6 +63,13 @@ public class SqliteHelper extends SQLiteOpenHelper {
             + KEY_LOCK_NUM + " TEXT, "
             + KEY_DATETIME_FROM + " TEXT, "
             + KEY_DATETIME_TO + " TEXT"
+            + " ) ";
+
+    public static final String SQL_TABLE_LOCK = " CREATE TABLE " + TABLE_LOCK
+            + " ( "
+            + KEY_ID + " INTEGER PRIMARY KEY, "
+            + KEY_LOCK + " TEXT, "
+            + KEY_LOCK_PASSWORD + " TEXT "
             + " ) ";
 
     public SqliteHelper(Context context) {
@@ -70,6 +81,12 @@ public class SqliteHelper extends SQLiteOpenHelper {
         //Create Table when oncreate gets called
         sqLiteDatabase.execSQL(SQL_TABLE_USERS);
         sqLiteDatabase.execSQL(SQL_TABLE_ACCESS);
+        sqLiteDatabase.execSQL(SQL_TABLE_LOCK);
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(KEY_LOCK, "123");
+        initialValues.put(KEY_LOCK_PASSWORD, "hello world");
+
+        sqLiteDatabase.insert(SQL_TABLE_LOCK, null, initialValues);
 
 
     }
@@ -79,6 +96,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
         //drop table to create new one if database version updated
         sqLiteDatabase.execSQL(" DROP TABLE IF EXISTS " + TABLE_USERS);
         sqLiteDatabase.execSQL(" DROP TABLE IF EXISTS " + TABLE_ACCESS);
+        sqLiteDatabase.execSQL(" DROP TABLE IF EXISTS " + TABLE_LOCK);
 
     }
 
@@ -269,5 +287,17 @@ public class SqliteHelper extends SQLiteOpenHelper {
         public String getToDate() {
             return toDate;
         }
+    }
+
+    //LOCK TABLE CHECK
+
+    public Cursor checkLock(String lockid){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_LOCK,// Selecting Table
+                new String[]{KEY_LOCK_PASSWORD,KEY_LOCK},//Selecting columns want to query
+                KEY_LOCK + "=?",
+                new String[]{lockid},//Where clause
+                null, null, null);
+        return cursor;
     }
 }

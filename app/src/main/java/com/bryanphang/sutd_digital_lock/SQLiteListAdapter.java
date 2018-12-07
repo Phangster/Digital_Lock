@@ -3,6 +3,7 @@ package com.bryanphang.sutd_digital_lock;
 import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -70,7 +71,9 @@ public class SQLiteListAdapter extends RecyclerView.Adapter<SQLiteListAdapter.Ch
         charaViewHolder.unlockButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, lockid, Toast.LENGTH_LONG).show();
+                Cursor result = sqliteHelper.checkLock(lockid);
+                Toast.makeText(context, (CharSequence) result, Toast.LENGTH_LONG).show();
+
             }
         });
     }
