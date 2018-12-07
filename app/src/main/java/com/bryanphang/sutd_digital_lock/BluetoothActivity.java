@@ -74,6 +74,7 @@ public class BluetoothActivity extends AppCompatActivity{
         mDevicesListView.setAdapter(mBTArrayAdapter); // assign model to view
         mDevicesListView.setOnItemClickListener(mDeviceClickListener);
 
+        final String lockpassword = getIntent().getStringExtra(SQLiteListAdapter.lock_password);
 
         mHandler = new Handler() {
             public void handleMessage(android.os.Message msg) {
@@ -107,7 +108,8 @@ public class BluetoothActivity extends AppCompatActivity{
                 @Override
                 public void onClick(View v) {
                     if (mConnectedThread != null) //First check to make sure thread created
-                        mConnectedThread.write("HALP LAH DOES IT WORKKKK");
+                        mConnectedThread.write(lockpassword);
+                        //mConnectedThread.write("HALP LAH DOES IT WORKKKK");
                 }
             });
 

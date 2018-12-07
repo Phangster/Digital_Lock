@@ -24,8 +24,6 @@ public class SqliteHelper extends SQLiteOpenHelper {
     public static final String TABLE_ACCESS = "access";
     public static final String TABLE_LOCK = "lock";
 
-
-
     //TABLE COLUMNS
 
     //User table
@@ -184,13 +182,13 @@ public class SqliteHelper extends SQLiteOpenHelper {
         db.insert(TABLE_ACCESS, null, values);
     }
 
+    /* FOR ACCESS TABLE */
+
     public Cursor getAllData(){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor result = db.rawQuery("SELECT * FROM " + TABLE_ACCESS, null);
         return result;
     }
-
-    /*ADDED BY JIREH */
 
     static SqliteHelper createSqliteHelper(Context context) {
         if (sqliteHelper == null) {
@@ -289,8 +287,9 @@ public class SqliteHelper extends SQLiteOpenHelper {
         }
     }
 
-    //LOCK TABLE CHECK
+    /* FOR LOCK TABLE */
 
+    /*
     public Cursor checkLock(String lockid){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_LOCK,// Selecting Table
@@ -299,5 +298,62 @@ public class SqliteHelper extends SQLiteOpenHelper {
                 new String[]{lockid},//Where clause
                 null, null, null);
         return cursor;
+    }
+    */
+
+    //Fetch all rows from Table Lock table
+    public static String SQL_QUERY_ALL_LOCKTABLE_ROWS = "SELECT * FROM " + TABLE_LOCK;
+
+    public LockData queryLockTableRow(int position) {
+        if (readableDb == null) {
+            readableDb = getReadableDatabase();
+        }
+        Cursor cursor = readableDb.rawQuery(SQL_QUERY_ALL_LOCKTABLE_ROWS, null);
+        return getLockDataFromCursor(position, cursor);
+    }
+
+    public long queryLockTableNumRows() {
+        if (readableDb == null) {
+            readableDb = getReadableDatabase();
+        }
+        return DatabaseUtils.queryNumEntries(readableDb, TABLE_LOCK);
+    }
+
+    private LockData getLockDataFromCursor(int position, Cursor cursor){
+
+        String keylock = null;
+        String keypassword = null;
+
+        //move to given row
+        cursor.moveToPosition(position);
+
+        //key lock
+        int keylockIndex = cursor.getColumnIndex(KEY_LOCK);
+        //for text data type: cursor.getString
+        keylock = cursor.getString(keylockIndex);
+
+        //key lock password
+        int keypasswordIndex = cursor.getColumnIndex(KEY_LOCK_PASSWORD);
+        keypassword = cursor.getString(keypasswordIndex);
+
+        return new LockData(keylock, keypassword);
+    }
+
+    static class LockData {
+        private String keylock;
+        private String keylockpassword;
+
+        public LockData(String keylock, String keylockpassword) {
+            this.keylock = keylock;
+            this.keylockpassword = keylockpassword;
+        }
+
+        public String getKeylock() {
+            return keylock;
+        }
+
+        public String getKeylockpassword() {
+            return keylockpassword;
+        }
     }
 }
