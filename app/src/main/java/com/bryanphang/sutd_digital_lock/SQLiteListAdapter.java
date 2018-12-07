@@ -26,6 +26,8 @@ public class SQLiteListAdapter extends RecyclerView.Adapter<SQLiteListAdapter.Ch
     public static final String fromDate_entry = "From Date";
     public static final String toDate_entry = "To Date";
 
+    public static final String lock_password = "Lock Password";
+
     public SQLiteListAdapter(Context context, SqliteHelper sqliteHelper) {
         mInflater = LayoutInflater.from(context);
         this.context = context;
@@ -71,8 +73,18 @@ public class SQLiteListAdapter extends RecyclerView.Adapter<SQLiteListAdapter.Ch
         charaViewHolder.unlockButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Cursor result = sqliteHelper.checkLock(lockid);
-                Toast.makeText(context, (CharSequence) result, Toast.LENGTH_LONG).show();
+                int numLockTableRows = (int) sqliteHelper.queryLockTableNumRows();
+                for (int i = 0; i < numLockTableRows; i++) {
+                    SqliteHelper.LockData lockData = sqliteHelper.queryLockTableRow(i);
+                    if (lockData.getKeylock() == lockid) {
+                        Intent intent = new Intent(context, BluetoothActivity.class);
+                        intent.putExtra(SQLiteListAdapter.lock_password, lockData.getKeylockpassword());
+                        context.startActivity(intent);
+                        Toast.makeText(context, "Password Obtained", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(context, "Password Not Found", Toast.LENGTH_LONG).show();
+                    }
+                }
 
             }
         });
