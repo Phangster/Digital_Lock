@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SQLiteListAdapter extends RecyclerView.Adapter<SQLiteListAdapter.CharaViewHolder> {
 
@@ -65,6 +66,13 @@ public class SQLiteListAdapter extends RecyclerView.Adapter<SQLiteListAdapter.Ch
                 context.startActivity(intent);
             }
         });
+
+        charaViewHolder.unlockButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, lockid, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
@@ -79,6 +87,7 @@ public class SQLiteListAdapter extends RecyclerView.Adapter<SQLiteListAdapter.Ch
         public TextView textViewDateFrom;
         public TextView textViewDateTo;
         Button editButton;
+        Button unlockButton;
 
         //going inside instance that you see of a particular card view
         public CharaViewHolder(View view){
@@ -88,6 +97,7 @@ public class SQLiteListAdapter extends RecyclerView.Adapter<SQLiteListAdapter.Ch
             textViewDateFrom = view.findViewById(R.id.cardViewTextDateFrom);
             textViewDateTo = view.findViewById(R.id.cardViewTextDateTo);
             editButton = view.findViewById(R.id.buttonedit);
+            unlockButton = view.findViewById(R.id.buttonunlock);
         }
     }
 }
