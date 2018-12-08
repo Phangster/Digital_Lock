@@ -37,7 +37,6 @@ public class SqliteHelper extends SQLiteOpenHelper {
     public static final String KEY_LOCK_NUM = "locknum";
     public static final String KEY_DATETIME_FROM = "datetimefrom";
     public static final String KEY_DATETIME_TO = "datetimeto";
-    public static final String KEY_ACCESS_PASSWORD = "accesspassword";
 
     //Lock table
     public static final String KEY_LOCK = "locknum";
@@ -61,8 +60,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
             + KEY_FINDBY_NAME + " TEXT, "
             + KEY_LOCK_NUM + " TEXT, "
             + KEY_DATETIME_FROM + " TEXT, "
-            + KEY_DATETIME_TO + " TEXT, "
-            + KEY_ACCESS_PASSWORD + " TEXT"
+            + KEY_DATETIME_TO + " TEXT"
             + " ) ";
 
     public static final String SQL_TABLE_LOCK = " CREATE TABLE " + TABLE_LOCK
@@ -194,7 +192,6 @@ public class SqliteHelper extends SQLiteOpenHelper {
         values.put(KEY_LOCK_NUM, access.locknum);
         values.put(KEY_DATETIME_FROM, access.datetimefrom);
         values.put(KEY_DATETIME_TO, access.datetimeto);
-        values.put(KEY_ACCESS_PASSWORD, access.accesspassword);
 
         // insert row
         db.insert(TABLE_ACCESS, null, values);
@@ -236,7 +233,6 @@ public class SqliteHelper extends SQLiteOpenHelper {
         String lockid = null;
         String fromDate = null;
         String toDate = null;
-        String password = null;
 
         //move to given row
         cursor.moveToPosition(position);
@@ -258,11 +254,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
         int toDateIndex = cursor.getColumnIndex(KEY_DATETIME_TO);
         toDate = cursor.getString(toDateIndex);
 
-        //password
-        int passwordIndex = cursor.getColumnIndex(KEY_ACCESS_PASSWORD);
-        password = cursor.getString(passwordIndex);
-
-        return new CharaData(name, lockid, fromDate, toDate, password);
+        return new CharaData(name, lockid, fromDate, toDate);
     }
 
     public int deleteOneRow(String name) {
@@ -285,14 +277,12 @@ public class SqliteHelper extends SQLiteOpenHelper {
         private String lockid;
         private String fromDate;
         private String toDate;
-        private String password;
 
-        public CharaData(String name, String lockid, String fromDate, String toDate, String password) {
+        public CharaData(String name, String lockid, String fromDate, String toDate) {
             this.name = name;
             this.lockid = lockid;
             this.fromDate = fromDate;
             this.toDate = toDate;
-            this.password = password;
         }
 
         public String getName() {
@@ -309,10 +299,6 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
         public String getToDate() {
             return toDate;
-        }
-
-        public String getPassword() {
-            return password;
         }
     }
 
@@ -333,16 +319,12 @@ public class SqliteHelper extends SQLiteOpenHelper {
     //Fetch all rows from Table Lock table
     public static String SQL_QUERY_ALL_LOCKTABLE_ROWS = "SELECT * FROM " + TABLE_LOCK;
 
-    public Cursor queryLockTableRow(int position) {
+    public LockData queryLockTableRow(int position) {
         if (readableDb == null) {
             readableDb = getReadableDatabase();
         }
-        Cursor cursor = readableDb.query(TABLE_LOCK,// Selecting Table
-            new String[]{KEY_LOCK_PASSWORD,KEY_LOCK},//Selecting columns want to query
-            KEY_LOCK + "=?",
-            new String[]{"123"},//Where clause
-            null, null, null);
-        return cursor;
+        Cursor cursor = readableDb.rawQuery(SQL_QUERY_ALL_LOCKTABLE_ROWS, null);
+        return getLockDataFromCursor(position, cursor);
     }
 
     public long queryLockTableNumRows() {
