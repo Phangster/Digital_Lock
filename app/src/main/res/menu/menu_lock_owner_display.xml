@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.bryanphang.sutd_digital_lock.LockOwnerDisplayActivity">
+
+    <item
+        android:id="@+id/go_unlock_page"
+        android:orderInCategory="100"
+        android:title="My Lock Access"
+        app:showAsAction="never" />
+</menu>

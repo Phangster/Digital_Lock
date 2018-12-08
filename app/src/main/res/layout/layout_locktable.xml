@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/cardViewItem"
+        android:id="@+id/LockTableCardViewItem"
         app:cardPreventCornerOverlap="false"
         cardCornerRadius="5dp"
         cardMaxElevation="1dp"
@@ -24,26 +24,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/nameplaceholder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="20px"
-                android:layout_marginTop="20px"
-                android:text="Name: "/>
-
-            <TextView
-                android:id="@+id/cardViewTextName"
-                android:text="Name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="20px"
-                android:layout_marginRight="20px"
-                android:layout_alignParentRight="true"/>
-
-            <TextView
-                android:id="@+id/lockidplaceholder"
+                android:id="@+id/lockidplaceholder_locktable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -52,18 +33,17 @@
                 android:text="Lock ID: "/>
 
             <TextView
-                android:id="@+id/cardViewTextLockid"
+                android:id="@+id/cardViewTextLockid_locktable"
                 android:text="Lock ID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="20px"
-                android:layout_below="@id/cardViewTextName" />
+                android:layout_marginRight="20px" />
 
             <TextView
-                android:id="@+id/fromdateplaceholder"
-                android:layout_below="@id/lockidplaceholder"
+                android:id="@+id/fromdateplaceholder_locktable"
+                android:layout_below="@id/lockidplaceholder_locktable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -71,18 +51,18 @@
                 android:text="From Date: "/>
 
             <TextView
-                android:id="@+id/cardViewTextDateFrom"
+                android:id="@+id/cardViewTextDateFrom_locktable"
                 android:text="From: "
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_below="@id/cardViewTextLockid"
+                android:layout_below="@id/cardViewTextLockid_locktable"
                 android:layout_marginRight="20px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/todateplaceholder"
-                android:layout_below="@id/fromdateplaceholder"
+                android:id="@+id/todateplaceholder_locktable"
+                android:layout_below="@id/fromdateplaceholder_locktable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -90,23 +70,23 @@
                 android:text="To Date: "/>
 
             <TextView
-                android:id="@+id/cardViewTextDateTo"
+                android:id="@+id/cardViewTextDateTo_locktable"
                 android:text="To: "
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_below="@id/cardViewTextDateFrom"
+                android:layout_below="@id/cardViewTextDateFrom_locktable"
                 android:layout_marginRight="20px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <Button
-                android:id="@+id/buttonedit"
+                android:id="@+id/buttonunlock_locktable"
                 android:layout_centerInParent="true"
-                android:text="EDIT"
+                android:text="UNLOCK"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/cardViewTextDateTo"
-                android:layout_marginTop="20px"/>
+                android:layout_below="@id/cardViewTextDateTo_locktable"
+                android:layout_marginBottom="20px" />
 
         </RelativeLayout>
 

@@ -15,6 +15,12 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/my_locks"
+        android:orderInCategory="120"
+        android:title="My Locks"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/view_all"
         android:orderInCategory="120"
         android:title="View All"
