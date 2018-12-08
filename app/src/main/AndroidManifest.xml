@@ -53,6 +53,11 @@
             android:label="@string/app_name"
             android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".LockOwnerDisplayActivity"
+            android:label=""
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

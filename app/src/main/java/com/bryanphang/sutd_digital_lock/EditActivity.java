@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
+import java.util.Random;
 import java.util.TimeZone;
 
 public class EditActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener {
@@ -107,14 +108,28 @@ public class EditActivity extends AppCompatActivity implements DatePickerDialog.
                 System.out.println(locknumOutput);
                 String dateTimeFromOutput = originaldatetimeFrom.getText().toString();
                 String dateTimeToOutput = originaldatetimeTo.getText().toString();
+                String password = random();
                 sqliteHelper.deleteOneRow(name);
-                sqliteHelper.addAccess(new Access(null, nameOutput, locknumOutput, dateTimeFromOutput, dateTimeToOutput));
+                sqliteHelper.addAccess(new Access(null, nameOutput, locknumOutput, dateTimeFromOutput, dateTimeToOutput, password));
 
                 Intent intent = new Intent(EditActivity.this, HomeActivity.class);
                 startActivity(intent);
 
             }
         });
+    }
+
+    //random String generator of 10 characters
+    public static String random() {
+        Random generator = new Random();
+        StringBuilder randomStringBuilder = new StringBuilder();
+        int randomLength = generator.nextInt(20);
+        char tempChar;
+        for (int i = 0; i < randomLength; i++){
+            tempChar = (char) (generator.nextInt(96) + 32);
+            randomStringBuilder.append(tempChar);
+        }
+        return randomStringBuilder.toString();
     }
 
     @Override

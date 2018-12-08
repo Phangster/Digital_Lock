@@ -131,6 +131,11 @@ public class HomeActivity extends AppCompatActivity{
             startActivity(intent);
         }
 
+        if (id == R.id.my_locks) {
+            Intent intent = new Intent(this, LockOwnerDisplayActivity.class);
+            startActivity(intent);
+        }
+
         if (id == R.id.view_all) {
             Cursor result = sqliteHelper.getAllData();
             if(result.getCount() == 0){
