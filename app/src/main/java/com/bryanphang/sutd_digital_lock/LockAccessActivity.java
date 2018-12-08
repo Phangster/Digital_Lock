@@ -14,8 +14,10 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.Random;
 import java.util.TimeZone;
 
 public class LockAccessActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener {
@@ -85,13 +87,27 @@ public class LockAccessActivity extends AppCompatActivity implements DatePickerD
                 String Locknum = locknum.getText().toString();
                 String Datetimefrom = datetimeFrom.getText().toString();
                 String Datetimeto = datetimeTo.getText().toString();
-                sqliteHelper.addAccess(new Access(null, Name, Locknum, Datetimefrom, Datetimeto));
-
+                String password = random();
+                sqliteHelper.addAccess(new Access(null, Name, Locknum, Datetimefrom, Datetimeto, password));
+                Toast.makeText(LockAccessActivity.this, password, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(LockAccessActivity.this, HomeActivity.class);
                 startActivity(intent);
 
             }
         });
+    }
+
+    //random String generator of 10 characters
+    public static String random() {
+        Random generator = new Random();
+        StringBuilder randomStringBuilder = new StringBuilder();
+        int randomLength = generator.nextInt(20);
+        char tempChar;
+        for (int i = 0; i < randomLength; i++){
+            tempChar = (char) (generator.nextInt(96) + 32);
+            randomStringBuilder.append(tempChar);
+        }
+        return randomStringBuilder.toString();
     }
 
     @Override

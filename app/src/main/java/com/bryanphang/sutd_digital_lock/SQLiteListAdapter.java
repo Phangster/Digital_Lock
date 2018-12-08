@@ -70,24 +70,27 @@ public class SQLiteListAdapter extends RecyclerView.Adapter<SQLiteListAdapter.Ch
             }
         });
 
+        /*
         charaViewHolder.unlockButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int numLockTableRows = (int) sqliteHelper.queryLockTableNumRows();
+                int numLockTableRows = (int) sqliteHelper.queryNumRows();
                 for (int i = 0; i < numLockTableRows; i++) {
                     Object lockData = sqliteHelper.queryLockTableRow(i);
                     if (lockData.getKeylock() == lockid) {
+                    SqliteHelper.CharaData charaData = sqliteHelper.queryOneRow(i);
+                    if (charaData.getLockid() == lockid) {
                         Intent intent = new Intent(context, BluetoothActivity.class);
-                        intent.putExtra(SQLiteListAdapter.lock_password, lockData.getKeylockpassword());
+                        intent.putExtra(SQLiteListAdapter.lock_password, charaData.getPassword());
                         context.startActivity(intent);
                         Toast.makeText(context, "Password Obtained", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(context, "Password Not Found", Toast.LENGTH_LONG).show();
                     }
                 }
-
             }
         });
+        */
     }
 
     @Override
@@ -102,7 +105,7 @@ public class SQLiteListAdapter extends RecyclerView.Adapter<SQLiteListAdapter.Ch
         public TextView textViewDateFrom;
         public TextView textViewDateTo;
         Button editButton;
-        Button unlockButton;
+        //Button unlockButton;
 
         //going inside instance that you see of a particular card view
         public CharaViewHolder(View view){
@@ -112,7 +115,7 @@ public class SQLiteListAdapter extends RecyclerView.Adapter<SQLiteListAdapter.Ch
             textViewDateFrom = view.findViewById(R.id.cardViewTextDateFrom);
             textViewDateTo = view.findViewById(R.id.cardViewTextDateTo);
             editButton = view.findViewById(R.id.buttonedit);
-            unlockButton = view.findViewById(R.id.buttonunlock);
+            //unlockButton = view.findViewById(R.id.buttonunlock);
         }
     }
 }
