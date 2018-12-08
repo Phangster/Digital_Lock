@@ -75,7 +75,7 @@ public class SQLiteListAdapter extends RecyclerView.Adapter<SQLiteListAdapter.Ch
             public void onClick(View v) {
                 int numLockTableRows = (int) sqliteHelper.queryLockTableNumRows();
                 for (int i = 0; i < numLockTableRows; i++) {
-                    SqliteHelper.LockData lockData = sqliteHelper.queryLockTableRow(i);
+                    Object lockData = sqliteHelper.queryLockTableRow(i);
                     if (lockData.getKeylock() == lockid) {
                         Intent intent = new Intent(context, BluetoothActivity.class);
                         intent.putExtra(SQLiteListAdapter.lock_password, lockData.getKeylockpassword());

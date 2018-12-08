@@ -44,6 +44,7 @@ public class BluetoothActivity extends AppCompatActivity{
     private Handler mHandler; // Our main handler that will receive callback notifications
     private ConnectedThread mConnectedThread; // bluetooth background worker thread to send and receive data
     private BluetoothSocket mBTSocket = null; // bi-directional client-to-client data path
+    private SqliteHelper sqliteHelper;
 
     private static final UUID BTMODULEUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"); // "random" unique identifier
 
@@ -108,6 +109,7 @@ public class BluetoothActivity extends AppCompatActivity{
                 @Override
                 public void onClick(View v) {
                     if (mConnectedThread != null) //First check to make sure thread created
+                        //push thread here
                         mConnectedThread.write(lockpassword);
                         //mConnectedThread.write("HALP LAH DOES IT WORKKKK");
                 }
@@ -141,6 +143,10 @@ public class BluetoothActivity extends AppCompatActivity{
                 }
             });
         }
+    }
+
+    public void checkDataBaseForLock(){
+
     }
 
     private void bluetoothOn(View view) {

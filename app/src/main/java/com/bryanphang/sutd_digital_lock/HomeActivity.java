@@ -83,6 +83,7 @@ public class HomeActivity extends AppCompatActivity{
                 int input = 1;
                 String input_id = String.valueOf(input);
                 Delete(input_id);
+
             }
         });
 

@@ -80,12 +80,6 @@ public class SqliteHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_TABLE_USERS);
         sqLiteDatabase.execSQL(SQL_TABLE_ACCESS);
         sqLiteDatabase.execSQL(SQL_TABLE_LOCK);
-        ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_LOCK, "123");
-        initialValues.put(KEY_LOCK_PASSWORD, "hello world");
-
-        sqLiteDatabase.insert(SQL_TABLE_LOCK, null, initialValues);
-
 
     }
 
@@ -98,6 +92,27 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
     }
 
+    //Populate database of lock upon login
+    public void populateData(){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(KEY_LOCK, "123");
+        initialValues.put(KEY_LOCK_PASSWORD, "hello world");
+        db.insert(TABLE_LOCK, null, initialValues);
+    }
+
+    //Check if database exist
+
+        public Cursor checkDataExist(){
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cursor = db.query(TABLE_LOCK,// Selecting Table
+                    new String[]{KEY_LOCK_PASSWORD,KEY_LOCK},//Selecting columns want to query
+                    KEY_LOCK + "=?",
+                    new String[]{"123"},//Where clause
+                    null, null, null);
+            return cursor;
+        }
 
     //USER TABLE CALLS
 
@@ -304,12 +319,16 @@ public class SqliteHelper extends SQLiteOpenHelper {
     //Fetch all rows from Table Lock table
     public static String SQL_QUERY_ALL_LOCKTABLE_ROWS = "SELECT * FROM " + TABLE_LOCK;
 
-    public LockData queryLockTableRow(int position) {
+    public Cursor queryLockTableRow(int position) {
         if (readableDb == null) {
             readableDb = getReadableDatabase();
         }
-        Cursor cursor = readableDb.rawQuery(SQL_QUERY_ALL_LOCKTABLE_ROWS, null);
-        return getLockDataFromCursor(position, cursor);
+        Cursor cursor = readableDb.query(TABLE_LOCK,// Selecting Table
+            new String[]{KEY_LOCK_PASSWORD,KEY_LOCK},//Selecting columns want to query
+            KEY_LOCK + "=?",
+            new String[]{"123"},//Where clause
+            null, null, null);
+        return cursor;
     }
 
     public long queryLockTableNumRows() {
