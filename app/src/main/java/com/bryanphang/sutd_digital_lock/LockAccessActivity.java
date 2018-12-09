@@ -89,7 +89,7 @@ public class LockAccessActivity extends AppCompatActivity implements DatePickerD
                 String Datetimeto = datetimeTo.getText().toString();
                 String password = random();
                 sqliteHelper.addAccess(new Access(null, Name, Locknum, Datetimefrom, Datetimeto, password));
-                Toast.makeText(LockAccessActivity.this, password, Toast.LENGTH_LONG).show();
+                Toast.makeText(LockAccessActivity.this, "New Access Added", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(LockAccessActivity.this, HomeActivity.class);
                 startActivity(intent);
 
