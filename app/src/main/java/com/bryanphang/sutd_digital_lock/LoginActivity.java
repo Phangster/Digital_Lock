@@ -53,7 +53,9 @@ public class LoginActivity extends AppCompatActivity {
 
                     //Check Authentication is successful or not
                     if (currentUser != null) {
-                        sqliteHelper.populateData();
+                        if (sqliteHelper.queryNumRowsLock() < 1) {
+                            sqliteHelper.populateData();
+                        }
                         Snackbar.make(buttonLogin, "Successfully Logged in!", Snackbar.LENGTH_LONG).show();
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         startActivity(intent);
