@@ -108,19 +108,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
         initialValues.put(KEY_LOCK_DT_TO, "16th January 2019");
         db.insert(TABLE_LOCK, null, initialValues);
     }
-
-    //Check if database exist
-
-//        public Cursor checkDataExist(){
-//            SQLiteDatabase db = this.getReadableDatabase();
-//            Cursor cursor = db.query(TABLE_LOCK,// Selecting Table
-//                    new String[]{KEY_LOCK_PASSWORD,KEY_LOCK},//Selecting columns want to query
-//                    KEY_LOCK + "=?",
-//                    new String[]{"123"},//Where clause
-//                    null, null, null);
-//            return cursor;
-//        }
-
+    
     //USER TABLE CALLS
 
     //using this method we can add users to user table
@@ -310,57 +298,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
     }
 
     /* FOR LOCK TABLE */
-
-    /*
-    public Cursor checkLock(String lockid){
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_LOCK,// Selecting Table
-                new String[]{KEY_LOCK_PASSWORD,KEY_LOCK},//Selecting columns want to query
-                KEY_LOCK + "=?",
-                new String[]{lockid},//Where clause
-                null, null, null);
-        return cursor;
-    }
-    */
-
-    //Fetch all rows from Table Lock table
-//    public static String SQL_QUERY_ALL_LOCKTABLE_ROWS = "SELECT * FROM " + TABLE_LOCK;
-//
-//    public LockData queryLockTableRow(int position) {
-//        if (readableDb == null) {
-//            readableDb = getReadableDatabase();
-//        }
-//        Cursor cursor = readableDb.rawQuery(SQL_QUERY_ALL_LOCKTABLE_ROWS, null);
-//        return getLockDataFromCursor(position, cursor);
-//    }
-//
-//    public long queryLockTableNumRows() {
-//        if (readableDb == null) {
-//            readableDb = getReadableDatabase();
-//        }
-//        return DatabaseUtils.queryNumEntries(readableDb, TABLE_LOCK);
-//    }
-
-//    private LockData getLockDataFromCursor(int position, Cursor cursor){
-//
-//        String keylock = null;
-//        String keypassword = null;
-//
-//        //move to given row
-//        cursor.moveToPosition(position);
-//
-//        //key lock
-//        int keylockIndex = cursor.getColumnIndex(KEY_LOCK);
-//        //for text data type: cursor.getString
-//        keylock = cursor.getString(keylockIndex);
-//
-//        //key lock password
-//        int keypasswordIndex = cursor.getColumnIndex(KEY_LOCK_PASSWORD);
-//        keypassword = cursor.getString(keypasswordIndex);
-//
-//        return new LockData(keylock, keypassword);
-//    }
-
+    
     public Cursor getAllDataLock(){
         SQLiteDatabase db = this.getWritableDatabase();
 
