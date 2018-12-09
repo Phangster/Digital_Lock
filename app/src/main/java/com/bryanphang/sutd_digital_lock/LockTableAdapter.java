@@ -54,10 +54,17 @@ public class LockTableAdapter extends RecyclerView.Adapter<LockTableAdapter.Lock
         lockTableViewHolder.unlockButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, BluetoothActivity.class);
-                intent.putExtra(LockTableAdapter.KEY_PASSWORD, charaData.getPassword());
-                context.startActivity(intent);
-                Toast.makeText(context, "Password Obtained", Toast.LENGTH_LONG).show();
+                for (int i = 0; i < sqliteHelper.queryLockTableNumRows(); i++) {
+                    SqliteHelper.LockData lockData = sqliteHelper.queryLockTableRow(i);
+                    if (lockData.getKeylock().equals(lockid)) {
+                        Intent intent = new Intent(context, BluetoothActivity.class);
+                        intent.putExtra(LockTableAdapter.KEY_PASSWORD, lockData.getKeylockpassword());
+                        Toast.makeText(context, "Password Obtained", Toast.LENGTH_LONG).show();
+                        context.startActivity(intent);
+                    } else {
+                        Toast.makeText(context, "Wrong Password", Toast.LENGTH_LONG).show();
+                    }
+                }
             }
         });
     }

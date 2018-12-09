@@ -80,7 +80,6 @@ public class SqliteHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_TABLE_USERS);
         sqLiteDatabase.execSQL(SQL_TABLE_ACCESS);
         sqLiteDatabase.execSQL(SQL_TABLE_LOCK);
-
     }
 
     @Override
