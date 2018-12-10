@@ -60,7 +60,7 @@ public class LockTableAdapter extends RecyclerView.Adapter<LockTableAdapter.Lock
                 Intent intent = new Intent(context, BluetoothActivity.class);
                 intent.putExtra(LockTableAdapter.KEY_PASSWORD, lockData.getKeylockpassword());
                 System.out.println(lockData.getKeylockpassword());
-                Toast.makeText(context, "Password Obtained", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Password Obtained", Toast.LENGTH_SHORT).show();
                 context.startActivity(intent);
                 }
         });

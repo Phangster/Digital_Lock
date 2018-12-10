@@ -33,6 +33,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
     public static final String KEY_PASSWORD = "password";
 
     //Access table
+    public static final String KEY_ACCESSTABLE_ID = "id";
     public static final String KEY_FINDBY_NAME = "findname";
     public static final String KEY_LOCK_NUM = "locknum";
     public static final String KEY_DATETIME_FROM = "datetimefrom";
@@ -59,7 +60,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
     public static final String SQL_TABLE_ACCESS = " CREATE TABLE " + TABLE_ACCESS
             + " ( "
-            + KEY_ID + " INTEGER PRIMARY KEY, "
+            + KEY_ACCESSTABLE_ID + " INTEGER PRIMARY KEY, "
             + KEY_FINDBY_NAME + " TEXT, "
             + KEY_LOCK_NUM + " TEXT, "
             + KEY_DATETIME_FROM + " TEXT, "
@@ -228,6 +229,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
         String lockid = null;
         String fromDate = null;
         String toDate = null;
+        String dataid = null;
 
         //move to given row
         cursor.moveToPosition(position);
@@ -249,7 +251,11 @@ public class SqliteHelper extends SQLiteOpenHelper {
         int toDateIndex = cursor.getColumnIndex(KEY_DATETIME_TO);
         toDate = cursor.getString(toDateIndex);
 
-        return new CharaData(name, lockid, fromDate, toDate);
+        //id
+        int dataidIndex = cursor.getColumnIndex(KEY_ACCESSTABLE_ID);
+        dataid = cursor.getString(dataidIndex);
+
+        return new CharaData(name, lockid, fromDate, toDate, dataid);
     }
 
     public int deleteOneRow(String name) {
@@ -258,6 +264,16 @@ public class SqliteHelper extends SQLiteOpenHelper {
         }
         String WHERE_CLAUSE = KEY_FINDBY_NAME + " = ?";
         String[] WHERE_ARGS = {name};
+        int rowsDeleted = writeableDb.delete(TABLE_ACCESS, WHERE_CLAUSE, WHERE_ARGS);
+        return rowsDeleted;
+    }
+
+    public int deleteRowByTableID(String id) {
+        if (writeableDb == null) {
+            writeableDb = getWritableDatabase();
+        }
+        String WHERE_CLAUSE = KEY_ACCESSTABLE_ID + " = ?";
+        String[] WHERE_ARGS = {id};
         int rowsDeleted = writeableDb.delete(TABLE_ACCESS, WHERE_CLAUSE, WHERE_ARGS);
         return rowsDeleted;
     }
@@ -272,12 +288,14 @@ public class SqliteHelper extends SQLiteOpenHelper {
         private String lockid;
         private String fromDate;
         private String toDate;
+        private String dataid;
 
-        public CharaData(String name, String lockid, String fromDate, String toDate) {
+        public CharaData(String name, String lockid, String fromDate, String toDate, String dataid) {
             this.name = name;
             this.lockid = lockid;
             this.fromDate = fromDate;
             this.toDate = toDate;
+            this.dataid = dataid;
         }
 
         public String getName() {
@@ -294,6 +312,10 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
         public String getToDate() {
             return toDate;
+        }
+
+        public String getDataid() {
+            return dataid;
         }
     }
 

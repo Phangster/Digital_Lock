@@ -72,7 +72,6 @@
 
             <TextView
                 android:id="@+id/cardViewTextDateFrom"
-                android:text="From: "
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/cardViewTextLockid"
@@ -91,7 +90,6 @@
 
             <TextView
                 android:id="@+id/cardViewTextDateTo"
-                android:text="To: "
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/cardViewTextDateFrom"
@@ -107,6 +105,15 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/cardViewTextDateTo"
                 android:layout_marginTop="20px"/>
+
+            <Button
+                android:id="@+id/buttondelete"
+                android:layout_centerInParent="true"
+                android:text="DELETE"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/buttonedit"
+                android:layout_marginTop="5px"/>
 
         </RelativeLayout>
 

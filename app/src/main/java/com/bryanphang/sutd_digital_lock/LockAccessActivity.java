@@ -135,11 +135,11 @@ public class LockAccessActivity extends AppCompatActivity implements DatePickerD
 
     private void showTime(int hour, int min, int year, int month, int day){
         if(change==true) {
-            datetimeFrom.setText(new StringBuilder().append("From: ").append(day).append("/")
+            datetimeFrom.setText(new StringBuilder().append(day).append("/")
                     .append(month).append("/").append(year).append(" ").append(hour).append(":")
                     .append(min));
         }if(change==false){
-            datetimeTo.setText(new StringBuilder().append("To: ").append(day).append("/")
+            datetimeTo.setText(new StringBuilder().append(day).append("/")
                     .append(month).append("/").append(year).append(" ").append(hour).append(":")
                     .append(min));
         }
