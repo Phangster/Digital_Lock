@@ -23,8 +23,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <!--
-
             <TextView
                 android:id="@+id/ownernameplaceholder_locktable"
                 android:layout_width="wrap_content"
@@ -45,12 +43,12 @@
 
             <TextView
                 android:id="@+id/propertyplaceholder_locktable"
-                android:layout_below="@id/ownernameplaceholder_locktable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:layout_below="@id/ownernameplaceholder_locktable"
                 android:layout_marginLeft="20px"
-                android:text="From Date: "/>
+                android:text="Property: " />
 
             <TextView
                 android:id="@+id/cardViewTextProperty_locktable"
@@ -62,30 +60,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            -->
-
-            <TextView
-                android:id="@+id/lockidplaceholder_locktable"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="20px"
-                android:layout_marginTop="20px"
-                android:text="Lock ID: "/>
-
-            <TextView
-                android:id="@+id/cardViewTextLockid_locktable"
-                android:text="Owner Name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="20px"
-                android:layout_marginRight="20px" />
-
             <TextView
                 android:id="@+id/fromdateplaceholder_locktable"
-                android:layout_below="@id/lockidplaceholder_locktable"
+                android:layout_below="@id/propertyplaceholder_locktable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -97,7 +74,7 @@
                 android:text="Date From"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_below="@id/cardViewTextLockid_locktable"
+                android:layout_below="@id/cardViewTextProperty_locktable"
                 android:layout_marginRight="20px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
