@@ -39,21 +39,13 @@ public class SqliteHelper extends SQLiteOpenHelper {
     public static final String KEY_DATETIME_TO = "datetimeto";
 
     //Lock table
-    /*
     public static final String KEY_OWNER_NAME = "ownername";
     public static final String KEY_PROPERTY = "property";
     public static final String KEY_LOCK_DT_FROM = "lockdtfrom";
     public static final String KEY_LOCK_DT_TO = "lockdtto";
     public static final String KEY_LOCK_PASSWORD = "lockpassword";
-    */
-
-    public static final String KEY_LOCK_ID = "lockid";
-    public static final String KEY_LOCK_PASSWORD = "lockpassword";
-    public static final String KEY_ACCESS_GRANTED = "accessgranted";
 
 
-
-    public String current_user;
 
     //SQL for creating table
     public static final String SQL_TABLE_USERS = " CREATE TABLE " + TABLE_USERS
@@ -76,23 +68,12 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
     public static final String SQL_TABLE_LOCK = " CREATE TABLE " + TABLE_LOCK
             + " ( "
-            + KEY_ID + " INTEGER PRIMARY KEY, "
-            + KEY_LOCK_ID + " TEXT, "
-            + KEY_LOCK_PASSWORD + " TEXT, "
-            + KEY_ACCESS_GRANTED + " TEXT "
-            + " ) ";
-
-    /*
-    public static final String SQL_TABLE_LOCK = " CREATE TABLE " + TABLE_LOCK
-            + " ( "
-//            + KEY_ID + " INTEGER PRIMARY KEY, "
             + KEY_OWNER_NAME + " TEXT, "
             + KEY_PROPERTY + " TEXT, "
             + KEY_LOCK_DT_FROM + " TEXT, "
             + KEY_LOCK_DT_TO + " TEXT, "
             + KEY_LOCK_PASSWORD + " TEXT "
             + " ) ";
-    */
 
     public SqliteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -120,11 +101,14 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues initialValues = new ContentValues();
+        initialValues.put(KEY_OWNER_NAME, "Jin Kiat");
+        initialValues.put(KEY_PROPERTY, "Jin Kiat's Mansion");
+        initialValues.put(KEY_LOCK_DT_FROM, "16th December 2018");
+        initialValues.put(KEY_LOCK_DT_TO, "16th January 2019");
         initialValues.put(KEY_LOCK_PASSWORD, "hello world");
-        initialValues.put(KEY_LOCK_ID, "123");
         db.insert(TABLE_LOCK, null, initialValues);
     }
-    
+
     //USER TABLE CALLS
 
     //using this method we can add users to user table
@@ -163,7 +147,6 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
             //Match both passwords check they are same or not
             if (user.password.equalsIgnoreCase(user1.password)) {
-                current_user = user.userName;
                 return user1;
             }
         }
@@ -314,8 +297,6 @@ public class SqliteHelper extends SQLiteOpenHelper {
         }
     }
 
-    /* FOR LOCK TABLE */
-    
     public Cursor getAllDataLock(){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -339,17 +320,33 @@ public class SqliteHelper extends SQLiteOpenHelper {
     }
 
     private LockData getDataFromCursorLock(int position, Cursor cursor){
-        String lockid = null;
+//        String lockid = null;
+        String name = null;
+        String property = null;
+        String fromDate = null;
+        String toDate = null;
         String password = null;
 
         //move to given row
         cursor.moveToPosition(position);
 
         if (cursor.moveToFirst()) {
+            //name
+            int ownerNameIndex = cursor.getColumnIndex(KEY_OWNER_NAME);
+            //for text data type: cursor.getString
+            name = cursor.getString(ownerNameIndex);
 
             //lock ID
-            int propertyIndex = cursor.getColumnIndex(KEY_LOCK_ID);
-            lockid = cursor.getString(propertyIndex);
+            int propertyIndex = cursor.getColumnIndex(KEY_PROPERTY);
+            property = cursor.getString(propertyIndex);
+
+            //fromDate
+            int lockFromDateIndex = cursor.getColumnIndex(KEY_LOCK_DT_FROM);
+            fromDate = cursor.getString(lockFromDateIndex);
+
+            //toDate
+            int lockToDateIndex = cursor.getColumnIndex(KEY_LOCK_DT_TO);
+            toDate = cursor.getString(lockToDateIndex);
 
             //password
             int passwordIndex = cursor.getColumnIndex(KEY_LOCK_PASSWORD);
@@ -357,43 +354,43 @@ public class SqliteHelper extends SQLiteOpenHelper {
         }
 
 
-        return new LockData(lockid, password);
+        return new LockData(name, property, fromDate, toDate, password);
     }
 
     static class LockData {
-        private String lockid;
+        private String ownername;
+        private String property;
+        private String lockdtfrom;
+        private String lockdtto;
         private String keylockpassword;
 
-        public LockData(String lockid, String keylockpassword) {
-            this.lockid = lockid;
+        public LockData(String ownername, String property, String lockdtfrom, String lockdtto, String keylockpassword) {
+            this.ownername = ownername;
+            this.property = property;
+            this.lockdtfrom = lockdtfrom;
+            this.lockdtto = lockdtto;
+            this.keylockpassword = keylockpassword;
             this.keylockpassword = keylockpassword;
         }
 
-        public String getLockid() {
-            return lockid;
+        public String getName() {
+            return ownername;
+        }
+
+        public String getProperty() {
+            return property;
+        }
+
+        public String getFromDate() {
+            return lockdtfrom;
+        }
+
+        public String getToDate() {
+            return lockdtto;
         }
 
         public String getKeylockpassword() {
             return keylockpassword;
         }
-    }
-
-    public Cursor queryAccessGranted(String name) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_LOCK,// Selecting Table
-                new String[]{KEY_ID, KEY_LOCK_ID, KEY_LOCK_PASSWORD, KEY_ACCESS_GRANTED},
-                KEY_ACCESS_GRANTED + "=?",
-                new String[]{name},//Where clause
-                null, null, null);
-        return cursor;
-    }
-
-    public void addUsertoAccessGranted(String name){
-        SQLiteDatabase db = this.getWritableDatabase();
-        //values to insert
-        ContentValues values = new ContentValues();
-        values.put(KEY_ACCESS_GRANTED, name);
-
-        db.insert(TABLE_LOCK, null, values);
     }
 }
