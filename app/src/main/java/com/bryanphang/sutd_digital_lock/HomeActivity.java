@@ -75,34 +75,6 @@ public class HomeActivity extends AppCompatActivity{
 
         sqliteHelper = new SqliteHelper(this);
 
-        btn_delete = findViewById(R.id.buttondelete);
-
-        btn_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int input = 1;
-                String input_id = String.valueOf(input);
-                Delete(input_id);
-
-            }
-        });
-
-    }
-
-    public void Delete(final String input){
-        btn_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //push id to here
-                Integer deletedRows = sqliteHelper.deleteData(input);
-                if(deletedRows > 0){
-                    Toast.makeText(HomeActivity.this, "Access deleted!", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(HomeActivity.this, "Error in delete, try again", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
     }
 
     //Viewing items stored in database

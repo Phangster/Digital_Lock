@@ -55,14 +55,5 @@
 
     </android.support.v7.widget.RecyclerView>
 
-    <Button
-        android:id="@+id/buttondelete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="66dp"
-        android:text="Delete" />
-
 
 </RelativeLayout>
