@@ -49,6 +49,9 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
     public static final String KEY_LOCK_ID = "lockid";
     public static final String KEY_LOCK_PASSWORD = "lockpassword";
+    public static final String KEY_ACCESS_GRANTED = "accessgranted";
+
+
 
     public String current_user;
 
@@ -75,7 +78,8 @@ public class SqliteHelper extends SQLiteOpenHelper {
             + " ( "
             + KEY_ID + " INTEGER PRIMARY KEY, "
             + KEY_LOCK_ID + " TEXT, "
-            + KEY_LOCK_PASSWORD + " TEXT "
+            + KEY_LOCK_PASSWORD + " TEXT, "
+            + KEY_ACCESS_GRANTED + " TEXT "
             + " ) ";
 
     /*
@@ -372,5 +376,24 @@ public class SqliteHelper extends SQLiteOpenHelper {
         public String getKeylockpassword() {
             return keylockpassword;
         }
+    }
+
+    public Cursor queryAccessGranted(String name) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_LOCK,// Selecting Table
+                new String[]{KEY_ID, KEY_LOCK_ID, KEY_LOCK_PASSWORD, KEY_ACCESS_GRANTED},
+                KEY_ACCESS_GRANTED + "=?",
+                new String[]{name},//Where clause
+                null, null, null);
+        return cursor;
+    }
+
+    public void addUsertoAccessGranted(String name){
+        SQLiteDatabase db = this.getWritableDatabase();
+        //values to insert
+        ContentValues values = new ContentValues();
+        values.put(KEY_ACCESS_GRANTED, name);
+
+        db.insert(TABLE_LOCK, null, values);
     }
 }

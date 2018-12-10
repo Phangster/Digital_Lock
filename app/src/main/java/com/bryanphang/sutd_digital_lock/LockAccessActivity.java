@@ -4,6 +4,7 @@ package com.bryanphang.sutd_digital_lock;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -88,6 +89,8 @@ public class LockAccessActivity extends AppCompatActivity implements DatePickerD
                 String Datetimefrom = datetimeFrom.getText().toString();
                 String Datetimeto = datetimeTo.getText().toString();
                 String password = random();
+                Cursor accessperson = sqliteHelper.queryAccessGranted(Name);
+                sqliteHelper.addUsertoAccessGranted(String.valueOf(accessperson));
                 sqliteHelper.addAccess(new Access(null, Name, Locknum, Datetimefrom, Datetimeto, password));
                 Toast.makeText(LockAccessActivity.this, "New Access Added", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(LockAccessActivity.this, HomeActivity.class);
