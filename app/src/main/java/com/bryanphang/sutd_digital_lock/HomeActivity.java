@@ -60,6 +60,7 @@ public class HomeActivity extends AppCompatActivity{
 
         sqliteHelper = new SqliteHelper(this);
 
+        /*
         btn_delete = findViewById(R.id.buttondelete);
 
         btn_delete.setOnClickListener(new View.OnClickListener() {
@@ -71,9 +72,11 @@ public class HomeActivity extends AppCompatActivity{
 
             }
         });
+        */
 
     }
 
+    /*
     public void Delete(final String input){
         btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +92,7 @@ public class HomeActivity extends AppCompatActivity{
         });
 
     }
+    */
 
     //Viewing items stored in database
     public void showMessage(String title, String Message){

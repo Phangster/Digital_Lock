@@ -6,6 +6,6 @@
     <item
         android:id="@+id/go_unlock_page"
         android:orderInCategory="100"
-        android:title="My Lock Access"
+        android:title="Key List"
         app:showAsAction="never" />
 </menu>

@@ -43,6 +43,7 @@ public class LockOwnerDisplayActivity extends AppCompatActivity {
 
         sqliteHelper = new SqliteHelper(this);
 
+        /*
         btn_delete = findViewById(R.id.buttondelete_locktable);
 
         btn_delete.setOnClickListener(new View.OnClickListener() {
@@ -53,8 +54,11 @@ public class LockOwnerDisplayActivity extends AppCompatActivity {
                 Delete(input_id);
             }
         });
+        */
 
     }
+
+    /*
 
     public void Delete(final String input){
         btn_delete.setOnClickListener(new View.OnClickListener() {
@@ -69,8 +73,8 @@ public class LockOwnerDisplayActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
+    */
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_lock_owner_display, menu);

@@ -46,7 +46,7 @@ public class SQLiteListAdapter extends RecyclerView.Adapter<SQLiteListAdapter.Ch
     @Override
     public void onBindViewHolder(@NonNull CharaViewHolder charaViewHolder, int i) {
         //query the layout first - which cardview are we referring to?
-        SqliteHelper.CharaData charaData = sqliteHelper.queryOneRow(i);
+        final SqliteHelper.CharaData charaData = sqliteHelper.queryOneRow(i);
 
         final String name = charaData.getName();
         final String lockid = charaData.getLockid();
@@ -67,6 +67,15 @@ public class SQLiteListAdapter extends RecyclerView.Adapter<SQLiteListAdapter.Ch
                 intent.putExtra(SQLiteListAdapter.fromDate_entry, fromDate);
                 intent.putExtra(SQLiteListAdapter.toDate_entry, toDate);
                 context.startActivity(intent);
+            }
+        });
+
+        charaViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sqliteHelper.deleteRowByTableID(charaData.getDataid());
+                notifyDataSetChanged();
+                Toast.makeText(context, "Successfully deleted", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -105,7 +114,7 @@ public class SQLiteListAdapter extends RecyclerView.Adapter<SQLiteListAdapter.Ch
         public TextView textViewDateFrom;
         public TextView textViewDateTo;
         Button editButton;
-        //Button unlockButton;
+        Button deleteButton;
 
         //going inside instance that you see of a particular card view
         public CharaViewHolder(View view){
@@ -115,7 +124,7 @@ public class SQLiteListAdapter extends RecyclerView.Adapter<SQLiteListAdapter.Ch
             textViewDateFrom = view.findViewById(R.id.cardViewTextDateFrom);
             textViewDateTo = view.findViewById(R.id.cardViewTextDateTo);
             editButton = view.findViewById(R.id.buttonedit);
-            //unlockButton = view.findViewById(R.id.buttonunlock);
+            deleteButton = view.findViewById(R.id.buttondelete);
         }
     }
 }
