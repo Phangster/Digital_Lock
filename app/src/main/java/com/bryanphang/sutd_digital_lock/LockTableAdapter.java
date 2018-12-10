@@ -8,8 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LockTableAdapter extends RecyclerView.Adapter<LockTableAdapter.LockTableViewHolder> {
 
@@ -41,43 +45,44 @@ public class LockTableAdapter extends RecyclerView.Adapter<LockTableAdapter.Lock
     @Override
     public void onBindViewHolder(@NonNull LockTableAdapter.LockTableViewHolder lockTableViewHolder, int i) {
         //query the layout first - which cardview are we referring to?
-        final SqliteHelper.LockData lockData = sqliteHelper.queryOneRowLock(i);
+        final SqliteHelper.CharaData charaData = sqliteHelper.queryOneRow(i);
 
-        final String ownername = lockData.getName();
-        final String property = lockData.getProperty();
-        final String fromDate = lockData.getFromDate();
-        final String toDate = lockData.getToDate();
+        final String lockid = charaData.getLockid();
+        final String fromDate = charaData.getFromDate();
+        final String toDate = charaData.getToDate();
 
-        lockTableViewHolder.textViewOwnerName.setText(ownername);
-        lockTableViewHolder.textViewProperty.setText(property);
+//        lockTableViewHolder.textViewOwnerName.setText(ownername);
+//        lockTableViewHolder.textViewProperty.setText(property);
+        lockTableViewHolder.textViewLockid.setText(lockid);
         lockTableViewHolder.textViewLockDateFrom.setText(fromDate);
         lockTableViewHolder.textViewLockDateTo.setText(toDate);
+
+        lockTableViewHolder.unlockButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (int i = 0; i < sqliteHelper.queryNumRowsLock(); i++) {
+                    SqliteHelper.LockData lockData = sqliteHelper.queryOneRowLock(i);
+                    if (lockData.getLockid().equals(lockid)) {
+                        Intent intent = new Intent(context, BluetoothActivity.class);
+                        intent.putExtra(LockTableAdapter.KEY_PASSWORD, lockData.getKeylockpassword());
+                        Toast.makeText(context, "Password Obtained", Toast.LENGTH_LONG).show();
+                        context.startActivity(intent);
+                    } else {
+                        Toast.makeText(context, "Wrong Password", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        });
 
 //        lockTableViewHolder.unlockButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                for (int i = 0; i < sqliteHelper.queryLockTableNumRows(); i++) {
-//                    SqliteHelper.LockData lockData = sqliteHelper.queryLockTableRow(i);
-//                    if (lockData.getKeylock().equals(lockid)) {
-//                        Intent intent = new Intent(context, BluetoothActivity.class);
-//                        intent.putExtra(LockTableAdapter.KEY_PASSWORD, lockData.getKeylockpassword());
-//                        Toast.makeText(context, "Password Obtained", Toast.LENGTH_LONG).show();
-//                        context.startActivity(intent);
-//                    } else {
-//                        Toast.makeText(context, "Wrong Password", Toast.LENGTH_LONG).show();
-//                    }
-//                }
+//                Intent intent = new Intent(context, BluetoothActivity.class);
+//                intent.putExtra(LockTableAdapter.KEY_PASSWORD, lockData.getKeylockpassword());
+//                context.startActivity(intent);
+//                Toast.makeText(context, "Password Obtained", Toast.LENGTH_LONG).show();
 //            }
 //        });
-        lockTableViewHolder.unlockButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, BluetoothActivity.class);
-                intent.putExtra(LockTableAdapter.KEY_PASSWORD, lockData.getKeylockpassword());
-                context.startActivity(intent);
-                Toast.makeText(context, "Password Obtained", Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
     @Override
@@ -87,8 +92,9 @@ public class LockTableAdapter extends RecyclerView.Adapter<LockTableAdapter.Lock
 
     class LockTableViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView textViewOwnerName;
-        public TextView textViewProperty;
+//        public TextView textViewOwnerName;
+//        public TextView textViewProperty;
+        public TextView textViewLockid;
         public TextView textViewLockDateFrom;
         public TextView textViewLockDateTo;
 
@@ -97,11 +103,29 @@ public class LockTableAdapter extends RecyclerView.Adapter<LockTableAdapter.Lock
         //going inside instance that you see of a particular card view
         public LockTableViewHolder(View view){
             super(view);
-            textViewOwnerName = view.findViewById(R.id.cardViewTextOwnerName_locktable);
-            textViewProperty = view.findViewById(R.id.cardViewTextProperty_locktable);
+//            textViewOwnerName = view.findViewById(R.id.cardViewTextOwnerName_locktable);
+//            textViewProperty = view.findViewById(R.id.cardViewTextProperty_locktable);
+            textViewLockid = view.findViewById(R.id.cardViewTextLockid_locktable);
             textViewLockDateFrom = view.findViewById(R.id.cardViewTextLockDateFrom_locktable);
             textViewLockDateTo = view.findViewById(R.id.cardViewTextLockDateTo_locktable);
             unlockButton = view.findViewById(R.id.buttonunlock_locktable);
         }
     }
+
+    /*
+
+    void filter() {
+        ArrayList<SqliteHelper.CharaData> temp = new ArrayList<>();
+        for (int i = 0; i < sqliteHelper.queryNumRows(); i++) {
+            SqliteHelper.CharaData charaData = sqliteHelper.queryOneRow(i);
+            if (charaData.getName() == sqliteHelper.current_user) {
+                temp.add(charaData);
+            }
+        }
+    }
+
+    public void updateList(ArrayList<SqliteHelper.CharaData> charaData) {
+
+    }
+    */
 }
