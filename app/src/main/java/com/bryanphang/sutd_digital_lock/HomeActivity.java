@@ -47,22 +47,7 @@ public class HomeActivity extends AppCompatActivity{
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        /*BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.appbar);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.access:
-                        return true;
-                    case R.id.keys:
-                        return true;
-                }
-                return false;
-            }
-        });
-        */
-
+        
         //TODO 9.7 The standard code to fill the recyclerview with data
         recyclerView = findViewById(R.id.charaRecyclerView);
         //create instance of data source object
@@ -74,6 +59,34 @@ public class HomeActivity extends AppCompatActivity{
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         sqliteHelper = new SqliteHelper(this);
+
+        btn_delete = findViewById(R.id.buttondelete);
+
+        btn_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int input = 1;
+                String input_id = String.valueOf(input);
+                Delete(input_id);
+
+            }
+        });
+
+    }
+
+    public void Delete(final String input){
+        btn_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //push id to here
+                Integer deletedRows = sqliteHelper.deleteData(input);
+                if(deletedRows > 0){
+                    Toast.makeText(HomeActivity.this, "Access deleted!", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(HomeActivity.this, "Error in delete, try again", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
     }
 
