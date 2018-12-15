@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
                             sqliteHelper.populateData();
                         }
                         Snackbar.make(buttonLogin, "Successfully Logged in!", Snackbar.LENGTH_LONG).show();
-                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, AccessRVActivity.class);
                         startActivity(intent);
 
                     } else {
