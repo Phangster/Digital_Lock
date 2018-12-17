@@ -5,7 +5,6 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -15,12 +14,10 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import java.util.Calendar;
 import java.util.Random;
-import java.util.TimeZone;
 
-public class LockAccessActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener {
+public class AddAccessActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener {
 
     Button btn_datetimePickerFrom;
     Button btn_datetimePickerTo;
@@ -59,7 +56,7 @@ public class LockAccessActivity extends AppCompatActivity implements DatePickerD
                 month = c.get(Calendar.MONTH);
                 dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(LockAccessActivity.this,LockAccessActivity.this,
+                DatePickerDialog datePickerDialog = new DatePickerDialog(AddAccessActivity.this,AddAccessActivity.this,
                         year, month, dayOfMonth);
                 datePickerDialog.show();
             }
@@ -74,7 +71,7 @@ public class LockAccessActivity extends AppCompatActivity implements DatePickerD
                 month = c.get(Calendar.MONTH);
                 dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(LockAccessActivity.this,LockAccessActivity.this,
+                DatePickerDialog datePickerDialog = new DatePickerDialog(AddAccessActivity.this,AddAccessActivity.this,
                         year, month+1, dayOfMonth);
                 datePickerDialog.show();
             }
@@ -89,8 +86,8 @@ public class LockAccessActivity extends AppCompatActivity implements DatePickerD
                 String Datetimeto = datetimeTo.getText().toString();
                 String password = random();
                 sqliteHelper.addAccess(new Access(null, Name, Locknum, Datetimefrom, Datetimeto, password));
-                Toast.makeText(LockAccessActivity.this, "New Access Added", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(LockAccessActivity.this, HomeActivity.class);
+                Toast.makeText(AddAccessActivity.this, "New Access Added", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(AddAccessActivity.this, AccessRVActivity.class);
                 startActivity(intent);
 
             }
@@ -121,7 +118,7 @@ public class LockAccessActivity extends AppCompatActivity implements DatePickerD
         hour = c.get(Calendar.HOUR_OF_DAY);
         minute = c.get(Calendar.MINUTE);
 
-        TimePickerDialog timePickerDialog = new TimePickerDialog(LockAccessActivity.this, LockAccessActivity.this,
+        TimePickerDialog timePickerDialog = new TimePickerDialog(AddAccessActivity.this, AddAccessActivity.this,
                 hour, minute, DateFormat.is24HourFormat(this));
         timePickerDialog.show();
 

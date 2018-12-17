@@ -75,7 +75,7 @@ public class BluetoothActivity extends AppCompatActivity{
         mDevicesListView.setAdapter(mBTArrayAdapter); // assign model to view
         mDevicesListView.setOnItemClickListener(mDeviceClickListener);
 
-        final String lockpassword = getIntent().getStringExtra(LockTableAdapter.KEY_PASSWORD);
+        final String lockpassword = getIntent().getStringExtra(LockAdapter.KEY_PASSWORD);
 
         mHandler = new Handler() {
             public void handleMessage(android.os.Message msg) {

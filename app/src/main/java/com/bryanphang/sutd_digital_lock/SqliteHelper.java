@@ -40,6 +40,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
     public static final String KEY_DATETIME_TO = "datetimeto";
 
     //Lock table
+    public static final String KEY_LOCKTABLE_ID = "id";
     public static final String KEY_OWNER_NAME = "ownername";
     public static final String KEY_PROPERTY = "property";
     public static final String KEY_LOCK_DT_FROM = "lockdtfrom";
@@ -69,6 +70,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
     public static final String SQL_TABLE_LOCK = " CREATE TABLE " + TABLE_LOCK
             + " ( "
+            + KEY_LOCKTABLE_ID + " INTEGER PRIMARY KEY, "
             + KEY_OWNER_NAME + " TEXT, "
             + KEY_PROPERTY + " TEXT, "
             + KEY_LOCK_DT_FROM + " TEXT, "
@@ -391,7 +393,6 @@ public class SqliteHelper extends SQLiteOpenHelper {
             this.property = property;
             this.lockdtfrom = lockdtfrom;
             this.lockdtto = lockdtto;
-            this.keylockpassword = keylockpassword;
             this.keylockpassword = keylockpassword;
         }
 

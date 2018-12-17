@@ -5,7 +5,6 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -14,10 +13,8 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
-
 import java.util.Calendar;
 import java.util.Random;
-import java.util.TimeZone;
 
 public class EditActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener {
 
@@ -48,10 +45,10 @@ public class EditActivity extends AppCompatActivity implements DatePickerDialog.
         originalfindname = findViewById(R.id.textInputEditTextOriginalfindname);
         originallocknum = findViewById(R.id.textInputEditTextOriginallocknum);
 
-        final String name = getIntent().getStringExtra(SQLiteListAdapter.name_entry);
-        final String lockid = getIntent().getStringExtra(SQLiteListAdapter.lockid_entry);
-        final String fromDate = getIntent().getStringExtra(SQLiteListAdapter.fromDate_entry);
-        final String toDate = getIntent().getStringExtra(SQLiteListAdapter.toDate_entry);
+        final String name = getIntent().getStringExtra(AccessAdapter.name_entry);
+        final String lockid = getIntent().getStringExtra(AccessAdapter.lockid_entry);
+        final String fromDate = getIntent().getStringExtra(AccessAdapter.fromDate_entry);
+        final String toDate = getIntent().getStringExtra(AccessAdapter.toDate_entry);
 
         originalfindname.setHint(name);
         originallocknum.setHint(lockid);
@@ -112,7 +109,7 @@ public class EditActivity extends AppCompatActivity implements DatePickerDialog.
                 sqliteHelper.deleteOneRow(name);
                 sqliteHelper.addAccess(new Access(null, nameOutput, locknumOutput, dateTimeFromOutput, dateTimeToOutput, password));
 
-                Intent intent = new Intent(EditActivity.this, HomeActivity.class);
+                Intent intent = new Intent(EditActivity.this, AccessRVActivity.class);
                 startActivity(intent);
 
             }

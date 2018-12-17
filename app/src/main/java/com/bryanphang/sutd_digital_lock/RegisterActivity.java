@@ -11,10 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-/**
- * Created by amardeep on 10/26/2017.
- */
-
 public class RegisterActivity extends AppCompatActivity {
 
     //Declaration EditTexts

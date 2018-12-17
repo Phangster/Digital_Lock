@@ -1,21 +1,17 @@
 package com.bryanphang.sutd_digital_lock;
 
-import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SQLiteListAdapter extends RecyclerView.Adapter<SQLiteListAdapter.CharaViewHolder> {
+public class AccessAdapter extends RecyclerView.Adapter<AccessAdapter.CharaViewHolder> {
 
     LayoutInflater mInflater;
     Context context;
@@ -28,7 +24,7 @@ public class SQLiteListAdapter extends RecyclerView.Adapter<SQLiteListAdapter.Ch
 
     public static final String lock_password = "Lock Password";
 
-    public SQLiteListAdapter(Context context, SqliteHelper sqliteHelper) {
+    public AccessAdapter(Context context, SqliteHelper sqliteHelper) {
         mInflater = LayoutInflater.from(context);
         this.context = context;
         this.sqliteHelper = sqliteHelper;
@@ -62,10 +58,10 @@ public class SQLiteListAdapter extends RecyclerView.Adapter<SQLiteListAdapter.Ch
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, EditActivity.class);
-                intent.putExtra(SQLiteListAdapter.name_entry, name);
-                intent.putExtra(SQLiteListAdapter.lockid_entry, lockid);
-                intent.putExtra(SQLiteListAdapter.fromDate_entry, fromDate);
-                intent.putExtra(SQLiteListAdapter.toDate_entry, toDate);
+                intent.putExtra(AccessAdapter.name_entry, name);
+                intent.putExtra(AccessAdapter.lockid_entry, lockid);
+                intent.putExtra(AccessAdapter.fromDate_entry, fromDate);
+                intent.putExtra(AccessAdapter.toDate_entry, toDate);
                 context.startActivity(intent);
             }
         });
@@ -78,28 +74,6 @@ public class SQLiteListAdapter extends RecyclerView.Adapter<SQLiteListAdapter.Ch
                 Toast.makeText(context, "Successfully deleted", Toast.LENGTH_SHORT).show();
             }
         });
-
-        /*
-        charaViewHolder.unlockButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int numLockTableRows = (int) sqliteHelper.queryNumRows();
-                for (int i = 0; i < numLockTableRows; i++) {
-                    Object lockData = sqliteHelper.queryLockTableRow(i);
-                    if (lockData.getKeylock() == lockid) {
-                    SqliteHelper.CharaData charaData = sqliteHelper.queryOneRow(i);
-                    if (charaData.getLockid() == lockid) {
-                        Intent intent = new Intent(context, BluetoothActivity.class);
-                        intent.putExtra(SQLiteListAdapter.lock_password, charaData.getPassword());
-                        context.startActivity(intent);
-                        Toast.makeText(context, "Password Obtained", Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(context, "Password Not Found", Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-        });
-        */
     }
 
     @Override

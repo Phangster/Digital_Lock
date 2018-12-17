@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class LockTableAdapter extends RecyclerView.Adapter<LockTableAdapter.LockTableViewHolder> {
+public class LockAdapter extends RecyclerView.Adapter<LockAdapter.LockViewHolder> {
 
     LayoutInflater mInflater;
     Context context;
@@ -23,7 +23,7 @@ public class LockTableAdapter extends RecyclerView.Adapter<LockTableAdapter.Lock
     public static final String KEY_LOCK_TODATE = "datetimeto";
     public static final String KEY_PASSWORD = "lock_password";
 
-    public LockTableAdapter(Context context, SqliteHelper sqliteHelper) {
+    public LockAdapter(Context context, SqliteHelper sqliteHelper) {
         mInflater = LayoutInflater.from(context);
         this.context = context;
         this.sqliteHelper = sqliteHelper;
@@ -32,14 +32,14 @@ public class LockTableAdapter extends RecyclerView.Adapter<LockTableAdapter.Lock
     @NonNull
     @Override
     //take one row of data, inflate the layout given
-    public LockTableAdapter.LockTableViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public LockAdapter.LockViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View itemView = mInflater.inflate(R.layout.layout_locktable, viewGroup, false);
         //passed into constructor of LockTableViewHolder (below)
-        return new LockTableAdapter.LockTableViewHolder(itemView);
+        return new LockAdapter.LockViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LockTableAdapter.LockTableViewHolder lockTableViewHolder, int i) {
+    public void onBindViewHolder(@NonNull LockAdapter.LockViewHolder lockViewHolder, int i) {
         //query the layout first - which cardview are we referring to?
         final SqliteHelper.LockData lockData = sqliteHelper.queryOneRowLock(i);
 
@@ -49,20 +49,20 @@ public class LockTableAdapter extends RecyclerView.Adapter<LockTableAdapter.Lock
         final String fromDate = lockData.getFromDate();
         final String toDate = lockData.getToDate();
 
-        lockTableViewHolder.textViewOwnerName.setText(ownername);
-        lockTableViewHolder.textViewProperty.setText(property);
-        lockTableViewHolder.textViewLockDateFrom.setText(fromDate);
-        lockTableViewHolder.textViewLockDateTo.setText(toDate);
+        lockViewHolder.textViewOwnerName.setText(ownername);
+        lockViewHolder.textViewProperty.setText(property);
+        lockViewHolder.textViewLockDateFrom.setText(fromDate);
+        lockViewHolder.textViewLockDateTo.setText(toDate);
 
-        lockTableViewHolder.unlockButton.setOnClickListener(new View.OnClickListener() {
+        lockViewHolder.unlockButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, BluetoothActivity.class);
-                intent.putExtra(LockTableAdapter.KEY_PASSWORD, lockData.getKeylockpassword());
+                intent.putExtra(LockAdapter.KEY_PASSWORD, lockData.getKeylockpassword());
                 System.out.println(lockData.getKeylockpassword());
                 Toast.makeText(context, "Password Obtained", Toast.LENGTH_SHORT).show();
                 context.startActivity(intent);
-                }
+            }
         });
     }
 
@@ -71,7 +71,7 @@ public class LockTableAdapter extends RecyclerView.Adapter<LockTableAdapter.Lock
         return (int) sqliteHelper.queryNumRowsLock();
     }
 
-    class LockTableViewHolder extends RecyclerView.ViewHolder {
+    class LockViewHolder extends RecyclerView.ViewHolder {
 
         public TextView textViewOwnerName;
         public TextView textViewProperty;
@@ -81,7 +81,7 @@ public class LockTableAdapter extends RecyclerView.Adapter<LockTableAdapter.Lock
         Button unlockButton;
 
         //going inside instance that you see of a particular card view
-        public LockTableViewHolder(View view){
+        public LockViewHolder(View view){
             super(view);
             textViewOwnerName = view.findViewById(R.id.cardViewTextOwnerName_locktable);
             textViewProperty = view.findViewById(R.id.cardViewTextProperty_locktable);
