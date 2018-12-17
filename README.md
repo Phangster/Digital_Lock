@@ -1,4 +1,4 @@
-# Digital_Lock
+# Lock Lock: A Smart Digital Lock
 
 This project is an Android app designed for SUTD ISTD's 50.001 Introduction to Information Systems and Programming module. 
 It was inspired by today’s home-sharing economy, as despite the success and ubiquity of such platforms as AirBnB and
@@ -8,7 +8,7 @@ Current methods include physical handover of keys or sharing of passcodes which 
 inconvenience and lack of security. We therefore propose an IoT-based smart lock that helps to solve all the aforementioned
 issues.
 
-# HOW TO USE OUR CODE
+# How to use our code
 
 Run the programme on your Android device. Upon registering and logging in, you will be taken to the "Key List" page. This
 is the owner's page, where owners of locks are able to specify the exact lock and the user whom they are giving access to, 
@@ -22,7 +22,7 @@ security and privacy issues), which will be passed to the Bluetooth access page.
 with the associated lock will cause the password to be passed as a string from the device to the lock, and upon receiving
 the correct string, the associated lock will unlock automatically.
 
-# ACKNOWLEDGEMENTS
+# Acknowledgements
 
 We'd like to thank Professor Norman Lee, our course professor for the code that he uses in lessons as these have helped
 us tremendously in terms of making our Android application. Additionally, we'd also like to thank both Professor Norman
